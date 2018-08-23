@@ -56,6 +56,40 @@ class ChildComponent extends React.Component {
         });
     }
 
+    calculateDisplayCount() {
+        let displaycardcount;
+        if (window.innerWidth <= 600) {
+            displaycardcount = 1;
+        } else if ((window.innerWidth > 600) && (window.innerWidth <= 1000)) {
+            displaycardcount = 2;
+        } else {
+            displaycardcount = 1;
+        }
+        return displaycardcount;
+    }
+
+    setTransform(){
+        const { group } = this.state;
+        this.slideWidth = -this.pos * this.item.offsetWidth;
+        this.totalWidth = this.item.offsetWidth * childs.length;
+        this.items.style.transform = `translate3d(${this.slideWidth}px,0,0)`;
+    }
+
+
+    transformRight(){
+        const { childs } = this.props;
+        const displaycardcount = this.calculateDisplayCount();
+        this.pos = ((this.pos === (childs.length - displaycardcount)) ? 0 : (this.pos + 1));
+        this.setTransform();
+    }
+
+    transformLeft(){
+        const { childs } = this.props;
+        const displaycardcount = this.calculateDisplayCount();
+        this.pos = ((this.pos === 0) ? (childs.length - displaycardcount) : (this.pos - 1));
+        this.setTransform();
+    }
+
     render() {
         const {isModelOpen, products, group} = this.state;
         return (
@@ -63,12 +97,22 @@ class ChildComponent extends React.Component {
             <Modal isOpen={isModelOpen} toggle={this.toggle} >
                 <ModalHeader>{group && group.name}</ModalHeader>
                 <ModalBody>
+                    <Button
+                        onClick={this.transformLeft}
+                    >
+                        {"<"}
+                    </Button>
                    {group && group.images && group.images.map((image) => {
                     return(
                         <Card key={image.href}>
                             <CardImg top width="100%" src={image.href} alt="Thumbnail image" />
                         </Card>)
                     })}
+                    <Button
+                        onClick={this.transformRight}
+                    >
+                        {">"}
+                    </Button>
                 </ModalBody>
                 <ModalFooter>
                     <Button

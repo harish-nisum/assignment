@@ -1,13 +1,13 @@
 {
-  "name": "TrainingReactRedux",
+  "name": "Nisum",
   "version": "1.0.0",
-  "description": "Practice for Day1",
+  "description": "Assignment",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
-  "author": "Hardik Desai",
+  "author": "Harish mandale",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
